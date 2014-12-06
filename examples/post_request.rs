@@ -5,7 +5,6 @@ extern crate urlencoded;
 use iron::{Iron, Request, Response, IronResult, Plugin, Set, status};
 use iron::response::modifiers::{Status, Body};
 use urlencoded::UrlEncodedBody;
-use std::io::net::ip::Ipv4Addr;
 
 fn log_post_data(req: &mut Request) -> IronResult<Response> {
     match req.get_ref::<UrlEncodedBody>() {
@@ -18,5 +17,5 @@ fn log_post_data(req: &mut Request) -> IronResult<Response> {
 
 // Test with `curl -i -X POST "http://localhost:3000/" --data "fruit=apple&name=iron&fruit=pear"`
 fn main() {
-    Iron::new(log_post_data).listen(Ipv4Addr(127, 0, 0, 1), 3000);
+    Iron::new(log_post_data).listen("localhost:3000").unwrap();
 }
