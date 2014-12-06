@@ -1,6 +1,3 @@
-#![crate_name = "urlencoded"]
-#![license = "MIT"]
-
 #![feature(default_type_params)]
 
 //! URL Encoded Plugin for Iron.
@@ -60,7 +57,7 @@ impl PluginFor<Request, HashMap<String, Vec<String>>> for UrlEncodedBody {
 fn create_param_hashmap(data: &str) -> Option<HashMap<String, Vec<String>>> {
     match data {
         "" => None,
-        _ => Some(combine_duplicates(form_urlencoded::parse_str(data)))
+        _ => Some(combine_duplicates(form_urlencoded::parse(data.as_bytes())))
     }
 }
 
